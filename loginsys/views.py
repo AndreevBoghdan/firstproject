@@ -12,6 +12,7 @@ from django.contrib import messages
 def login(request):
 	args={}
 	args.update(csrf(request))
+	####sdfsdfdrfgrdg
 	if request.method == "POST":
 
 		username=request.POST.get('username','')
