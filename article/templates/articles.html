@@ -8,8 +8,9 @@
 {% for article in articles %}	
 	<h6>Publication date: {{ article.article_date }}</h6>
 	<h4><a href="/articles/get/{{ article.id }}/">{{ article.article_title }}</a></h4>
-	<p><a href="/articles/addlike/{{ article.id }}/"><img src="{% static "1.png" %}" width="25px" height="25px" alt="">{{ article.article_likes }}</a></p>
-
+	{% if username %}
+		<p><a href="/articles/addlike/{{ article.id }}/{{ page_number }}/"><img src="{% static "1.png" %}" width="25px" height="25px" alt="">{{ article.article_likes }}</a></p>
+	{% endif %}
 	<hr>
 {% endfor %}
 </div>

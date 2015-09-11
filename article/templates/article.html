@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 
 {% block article %}
+
 <h4>{{ article.article_date }}</h4>
 <h2>{{ article.article_title }}</h2>
 <p>{{ article.article_text }}</p>
@@ -10,7 +11,7 @@
 <p>Комментарии</p>
 <div class="large-offset-1 large-8 columns">
 {% for comment in comments %}
-	<p>{{ comment.comments_text}} </p>
+	<p class='comment'>{{ comment.comments_text}} </p>
 {% endfor %}
 	
 	{% if username %}
@@ -20,6 +21,45 @@
 		<input type="submit" class="button" value="Добавить комментарий">
 	</form>
 
+
 	{% endif %}
+<script type="text/javascript">
+		var visibleComment=$('p:last')
+		visibleComment.addClass('visible')
+		var hideComments= $('p.comment:not(.visible)');
+		hideComments.hide();
+</script>
+
+<script type="text/javascript">
+	            function Show_Comments() {
+
+	           		visibleComment=$('p.comment');
+	           		visibleComment.show();
+	       
+	           		$('input.Show_Comments').attr('onclick', 'Hide_Comments()');
+	           		$('input.Show_Comments').attr('value', 'Hide comments');
+	           		$('input.Show_Comments').attr('class', 'Hide_Comments');
+	            }
+	            
+	            function Hide_Comments(){
+
+	            	$('p.comment').attr('class', 'comment');
+	            	$('p:last').addClass('visible');
+
+	            	var hideComments= $('p.comment:not(.visible)');
+					hideComments.hide();
+
+
+	            	$('input.Hide_Comments').attr('onclick', 'Show_Comments()');
+	           		$('input.Hide_Comments').attr('value', 'Show comments');
+	           		$('input.Hide_Comments').attr('class', 'Show_Comments');
+
+	            }
+
+</script>
+
+<input type="button" onclick="Show_Comments()" value="Show comments" class='Show_Comments'/>
 </div>
+
+
 {% endblock %}

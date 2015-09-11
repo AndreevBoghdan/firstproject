@@ -31,9 +31,9 @@ def template_three_simple(request):
 
 def articles(request, page_number=1):
 	all_articles=Article.objects.all()
-	current_page=Paginator(all_articles, 2)
+	current_page=Paginator(all_articles, 3)
 	
-	return render_to_response('articles.html', {'articles': current_page.page(page_number), 'username': auth.get_user(request).username })
+	return render_to_response('articles.html', {'articles': current_page.page(page_number), 'username': auth.get_user(request).username, "page_number": page_number })
 
 def article(request, article_id=1):
 	comment_form=CommentForm
@@ -56,18 +56,21 @@ def addcomment(request, article_id):
 			request.session['pause']=True
 	return redirect("/articles/get/%s/" %article_id)
 
-def	addlike (request, article_id):
+def	addlike (request, article_id, page_number=1):
+
+	
 	try:
 		if article_id in request.COOKIES:
-			redirect('/')
+			redirect('/page/%s/' %page_number)
 		else:
 			article = Article.objects.get(id=article_id)
 			article.article_likes += 1
 			article.save()
-			response = redirect('/')
+			response = redirect('/page/%s/' %page_number)
 			response.set_cookie(article_id, "test")
+
 			return response
 	
 	except ObjectDoesNotExist:
 		raise Http404
-	return redirect ("/")
+	return redirect ('/page/%s/' %page_number)
