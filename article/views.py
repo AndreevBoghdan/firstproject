@@ -51,6 +51,7 @@ def addcomment(request, article_id):
 		if form.is_valid():
 			comment = form.save(commit=False)
 			comment.comments_article = Article.objects.get(id=article_id)
+			comment.comments_user=request.user
 			comment.save()	
 			request.session.set_expiry(60)
 			request.session['pause']=True

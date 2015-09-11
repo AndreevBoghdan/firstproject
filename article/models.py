@@ -15,6 +15,8 @@ class Comments(models.Model):
 		db_table = 'comments'
 
 	comments_text = models.TextField("New Comment")
+	
 	comments_article = models.ForeignKey(Article)
+	comments_user = models.ForeignKey(User, null=True)
 
 

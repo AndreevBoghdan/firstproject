@@ -11,18 +11,10 @@
 <p>Комментарии</p>
 <div class="large-offset-1 large-8 columns">
 {% for comment in comments %}
-	<p class='comment'>{{ comment.comments_text}} </p>
+	<p class='comment'>{{comment.comments_user.username}}: {{ comment.comments_text}} </p>
 {% endfor %}
 	
-	{% if username %}
-	<form action="/articles/addcomment/{{ article.id }}/" method="post">
-		{% csrf_token %}
-		{{ form }}
-		<input type="submit" class="button" value="Добавить комментарий">
-	</form>
-
-
-	{% endif %}
+	
 <script type="text/javascript">
 		var visibleComment=$('p:last')
 		visibleComment.addClass('visible')
@@ -59,6 +51,18 @@
 </script>
 
 <input type="button" onclick="Show_Comments()" value="Show comments" class='Show_Comments'/>
+
+<div class="row">
+{% if username %}
+	<form action="/articles/addcomment/{{ article.id }}/" method="post">
+		{% csrf_token %}
+		{{ form }}
+		<input type="submit" class="button" value="Добавить комментарий">
+	</form>
+
+
+	{% endif %}
+</div>
 </div>
 
 
