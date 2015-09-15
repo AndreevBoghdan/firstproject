@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+import datetime
 
 # Create your models here.
 class Article(models.Model):
@@ -9,6 +11,11 @@ class Article(models.Model):
 	article_text=models.TextField()
 	article_date=models.DateTimeField()
 	article_likes=models.IntegerField(default=0)
+
+	def was_published_recently(self):
+    		now = timezone.now()
+    		return now - datetime.timedelta(days=1) <= self.article_date <= now
+ 
 
 class Comments(models.Model):
 	class Meta():
